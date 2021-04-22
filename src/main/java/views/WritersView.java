@@ -7,31 +7,51 @@ import model.Writer;
 import repository.impl.WriterRepositoryImpl;
 import service.WriterService;
 
+import java.util.Arrays;
+
 public class WritersView {
     private final WriterController writerController;
-    private final Writer writer;
+    private Writer writer;
+    private Integer writerId;
 
-    public WritersView(Writer writer) {
+    public WritersView() {
         this.writerController = new WriterController(new WriterService(new WriterRepositoryImpl()));
-        this.writer = writer;
     }
 
     public void executeOperation(Operations option) throws NoSuchOperation {
         switch (option) {
             case READ:
-                this.writerController.getWriter(writer.getId());
+                System.out.println(writerController.getWriter(writerId).toString());
                 break;
-            case SAVE:
-                this.writerController.saveWriter(writer);
+            case CREATE:
+                writerController.saveWriter(writer);
                 break;
             case DELETE:
-                this.writerController.deleteWriter(writer.getId());
+                writerController.deleteWriter(writerId);
                 break;
             case UPDATE:
-                this.writerController.updateWriter(writer);
+                writerController.updateWriter(writer);
                 break;
+            case READ_ALL:
+                writerController.getAllWriters().forEach(System.out::println);
             default:
                 throw new NoSuchOperation(NoSuchOperation.DEFAULT_EXCEPTION_MESSAGE);
         }
+    }
+
+    public Writer getWriter() {
+        return writer;
+    }
+
+    public void setWriter(Writer writer) {
+        this.writer = writer;
+    }
+
+    public Integer getWriterId() {
+        return writerId;
+    }
+
+    public void setWriterId(Integer writerId) {
+        this.writerId = writerId;
     }
 }

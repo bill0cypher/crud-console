@@ -56,4 +56,15 @@ public class Post {
     public void setWriter(Writer writer) {
         this.writer = writer;
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", created=" + created +
+                ", updated=" + updated +
+                ", writer=" + writer +
+                '}';
+    }
 }

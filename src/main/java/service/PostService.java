@@ -1,5 +1,6 @@
 package service;
 
+import exceptions.EmptyBodyException;
 import exceptions.EmptyListException;
 import exceptions.NoSuchEntryException;
 import model.Post;
@@ -7,6 +8,7 @@ import repository.impl.PostRepositoryImpl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class PostService {
 
@@ -15,7 +17,9 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public boolean save(Post post) throws IOException {
+    public boolean save(Post post) throws EmptyBodyException, IOException {
+        if (Objects.isNull(post))
+            throw new EmptyBodyException(EmptyBodyException.DEFAULT_MESSAGE_TEXT);
         return postRepository.save(post);
     }
 
@@ -41,7 +45,7 @@ public class PostService {
     }
 
 
-    public List<Post> getAll() {
-        return null;
+    public List<Post> getAll() throws IOException, EmptyListException {
+        return postRepository.getAll();
     }
 }

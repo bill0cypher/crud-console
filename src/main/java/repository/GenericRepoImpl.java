@@ -2,6 +2,8 @@ package repository;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import exceptions.EmptyListException;
 
@@ -32,10 +34,16 @@ public abstract class GenericRepoImpl<T, ID> implements GenericRepository<T, ID>
     protected boolean writeToFile(T t) throws FileNotFoundException, IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         FileReader reader = new FileReader(filename);
+        JsonObject jsonObject = new JsonParser().parse(gson.toJson(t)).getAsJsonObject();
         List<T> entries = gson.fromJson(reader, new TypeToken<List<T>>(){}.getType());
         reader.close();
-        if (entries.isEmpty())
+        if (entries.isEmpty()) {
             entries = new ArrayList<>();
+            jsonObject.addProperty("id", Integer.valueOf(0));
+        }
+        else
+            jsonObject.addProperty("id", entries.size());
+        t = gson.fromJson(jsonObject, new TypeToken<T>(){}.getType());
         entries.add(t);
         return parseToJSON(entries);
     }

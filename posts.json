@@ -1,0 +1,50 @@
+[
+  {
+    "id": 0,
+    "content": "Post c-t 0",
+    "created": 1619123520880,
+    "updated": 1619123520880,
+    "writer": {
+      "lastName": "Chekotov A.",
+      "region": {
+        "name": "Kiev"
+      }
+    }
+  },
+  {
+    "id": 1,
+    "content": "Some post content 2",
+    "created": 1619122865136,
+    "updated": 1619122865136,
+    "writer": {
+      "lastName": "Beregov",
+      "region": {
+        "name": "Kharkiv"
+      }
+    }
+  },
+  {
+    "id": 2,
+    "content": "Another post content",
+    "created": 1619123046008,
+    "updated": 1619123046008,
+    "writer": {
+      "lastName": "Chekotov",
+      "region": {
+        "name": "Kiev"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "content": "Another post",
+    "created": 1619123280439,
+    "updated": 1619123280439,
+    "writer": {
+      "lastName": "Chekotov",
+      "region": {
+        "name": "Kiev"
+      }
+    }
+  }
+]

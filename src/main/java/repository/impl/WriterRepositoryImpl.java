@@ -28,6 +28,7 @@ public class WriterRepositoryImpl extends GenericRepoImpl<Writer, Integer> imple
         for (Writer entry : writers) {
             if (entry.getId().equals(writer.getId())) {
                 writers.set(writers.indexOf(entry), writer);
+                return updateFile(writers);
             }
             else {
                 if (writers.indexOf(entry) == writers.size() -1)

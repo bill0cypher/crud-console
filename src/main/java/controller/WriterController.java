@@ -1,11 +1,13 @@
 package controller;
 
+import exceptions.EmptyBodyException;
 import exceptions.EmptyListException;
 import exceptions.NoSuchEntryException;
 import model.Writer;
 import service.WriterService;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 public class WriterController {
@@ -24,7 +26,7 @@ public class WriterController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return Collections.emptyList();
     }
 
     public Writer getWriter(Integer id) {
@@ -54,6 +56,8 @@ public class WriterController {
     public boolean saveWriter(Writer writer) {
         try {
             return writerService.save(writer);
+        } catch (EmptyBodyException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class PostRepositoryImpl extends GenericRepoImpl<Post, Integer> implements PostRepository {
 
     public PostRepositoryImpl() {
-        super("post.json", Post.class, Post[].class);
+        super("posts.json", Post.class, Post[].class);
     }
 
     @Override
@@ -30,6 +30,7 @@ public class PostRepositoryImpl extends GenericRepoImpl<Post, Integer> implement
         for (Post entry : posts) {
             if (entry.getId().equals(post.getId())) {
                 posts.set(posts.indexOf(entry), post);
+                return updateFile(posts);
             } else {
                 if (posts.indexOf(entry) == posts.size() - 1)
                     throw new NoSuchEntryException("Such entry doesn't exist");

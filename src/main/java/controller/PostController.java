@@ -1,11 +1,13 @@
 package controller;
 
+import exceptions.EmptyBodyException;
 import exceptions.EmptyListException;
 import exceptions.NoSuchEntryException;
 import model.Post;
 import service.PostService;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 public class PostController {
@@ -18,6 +20,8 @@ public class PostController {
     public boolean createPost(Post post) {
         try {
             postService.save(post);
+        } catch (EmptyBodyException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +53,14 @@ public class PostController {
     }
 
     public List<Post> getAllPosts() {
-        return postService.getAll();
+        try {
+            return postService.getAll();
+        } catch (EmptyListException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
     }
 
     public Post findPostById(Integer id) {
