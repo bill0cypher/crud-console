@@ -8,6 +8,7 @@ import repository.impl.WriterRepositoryImpl;
 import service.WriterService;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class WritersView {
     private final WriterController writerController;
@@ -21,7 +22,7 @@ public class WritersView {
     public void executeOperation(Operations option) throws NoSuchOperation {
         switch (option) {
             case READ:
-                System.out.println(writerController.getWriter(writerId).toString());
+                System.out.println(Objects.requireNonNull(writerController.getWriter(writerId)).toString());
                 break;
             case CREATE:
                 writerController.saveWriter(writer);

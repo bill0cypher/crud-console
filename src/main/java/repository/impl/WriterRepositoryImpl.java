@@ -25,16 +25,15 @@ public class WriterRepositoryImpl extends GenericRepoImpl<Writer, Integer> imple
     @Override
     public boolean update(Writer writer) throws NoSuchEntryException, EmptyListException, IOException {
         List<Writer> writers = readFromFile();
-        for (Writer entry : writers) {
-            if (entry.getId().equals(writer.getId())) {
-                writers.set(writers.indexOf(entry), writer);
-                return updateFile(writers);
+        writers.stream().filter(entry -> entry.getId().equals(writer.getId())).findAny().ifPresentOrElse(entry -> {
+            writers.set(writers.indexOf(entry), writer);
+        }, () -> {
+            try {
+                throw new NoSuchEntryException(String.format(NoSuchEntryException.DEFAULT_MESSAGE_TEXT, writer.getId()));
+            } catch (NoSuchEntryException e) {
+                e.printStackTrace();
             }
-            else {
-                if (writers.indexOf(entry) == writers.size() -1)
-                    throw new NoSuchEntryException("Entry to update doesn't exist");
-            }
-        }
+        });
         return updateFile(writers);
     }
 
@@ -47,9 +46,7 @@ public class WriterRepositoryImpl extends GenericRepoImpl<Writer, Integer> imple
     @Override
     public Writer findById(Integer id) throws NoSuchEntryException, EmptyListException, IOException {
         List<Writer> writers = readFromFile();
-        if (id > writers.size())
-            throw new NoSuchEntryException(String.format(NoSuchEntryException.DEFAULT_MESSAGE_TEXT, id));
-        return writers.get(id);
+        return Optional.of(id > writers.size()).map(aBoolean -> !aBoolean ? writers.get(id) : null).orElseThrow(() -> new NoSuchEntryException(String.format(NoSuchEntryException.DEFAULT_MESSAGE_TEXT, id)));
     }
 
     @Override

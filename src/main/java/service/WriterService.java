@@ -30,10 +30,7 @@ public class WriterService {
     }
 
     public Writer findById(Integer id) throws NoSuchEntryException, IOException, EmptyListException {
-        Writer writer =  writerRepository.findById(id);
-        if (writer == null)
-            throw new NoSuchEntryException(String.format(NoSuchEntryException.DEFAULT_MESSAGE_TEXT, id));
-        return writer;
+        return writerRepository.findById(id);
     }
 
     public List<Writer> getAll() throws IOException, EmptyListException {

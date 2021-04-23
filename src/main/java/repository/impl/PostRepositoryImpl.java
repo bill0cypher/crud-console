@@ -9,8 +9,7 @@ import repository.PostRepository;
 
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PostRepositoryImpl extends GenericRepoImpl<Post, Integer> implements PostRepository {
@@ -27,16 +26,16 @@ public class PostRepositoryImpl extends GenericRepoImpl<Post, Integer> implement
     @Override
     public boolean update(Post post) throws NoSuchEntryException, EmptyListException, IOException {
         List<Post> posts = readFromFile();
-        for (Post entry : posts) {
-            if (entry.getId().equals(post.getId())) {
-                posts.set(posts.indexOf(entry), post);
-                return updateFile(posts);
-            } else {
-                if (posts.indexOf(entry) == posts.size() - 1)
-                    throw new NoSuchEntryException("Such entry doesn't exist");
+        posts.stream().filter(entry -> entry.getId().equals(post.getId())).findAny().ifPresentOrElse(entry -> {
+            posts.set(posts.indexOf(entry), post);
+        }, () -> {
+            try {
+                throw new NoSuchEntryException(String.format(NoSuchEntryException.DEFAULT_MESSAGE_TEXT, post.getId()));
+            } catch (NoSuchEntryException e) {
+                e.printStackTrace();
             }
-        }
-        return false;
+        });
+        return updateFile(posts);
     }
 
     @Override
@@ -48,9 +47,8 @@ public class PostRepositoryImpl extends GenericRepoImpl<Post, Integer> implement
     @Override
     public Post findById(Integer id) throws NoSuchEntryException, EmptyListException, IOException {
         List<Post> posts = readFromFile();
-        if (id > posts.size())
-            throw new NoSuchEntryException(String.format(NoSuchEntryException.DEFAULT_MESSAGE_TEXT, id));
-        return posts.get(id);
+        return Optional.of(id > posts.size()).map(aBoolean -> !aBoolean ? posts.get(id) : null)
+                .orElseThrow(() -> new NoSuchEntryException(String.format(NoSuchEntryException.DEFAULT_MESSAGE_TEXT, id)));
     }
 
     @Override

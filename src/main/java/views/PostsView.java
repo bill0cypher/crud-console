@@ -8,6 +8,7 @@ import repository.impl.PostRepositoryImpl;
 import service.PostService;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class PostsView {
     private final PostController postController;
@@ -30,7 +31,7 @@ public class PostsView {
                 postController.deletePost(postId);
                 break;
             case READ:
-                System.out.println(postController.findPostById(postId).toString());
+                System.out.println(Objects.requireNonNull(postController.findPostById(postId)).toString());
                 break;
             case READ_ALL:
                 postController.getAllPosts().forEach(System.out::println);
