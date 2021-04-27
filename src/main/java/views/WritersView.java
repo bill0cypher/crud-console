@@ -25,13 +25,13 @@ public class WritersView {
                 System.out.println(Objects.requireNonNull(writerController.getWriter(writerId)).toString());
                 break;
             case CREATE:
-                writerController.saveWriter(writer);
+                System.out.println(Objects.requireNonNull(writerController.saveWriter(writer)).toString());
                 break;
             case DELETE:
                 writerController.deleteWriter(writerId);
                 break;
             case UPDATE:
-                writerController.updateWriter(writer);
+                System.out.println(Objects.requireNonNull(writerController.updateWriter(writer)).toString());
                 break;
             case READ_ALL:
                 writerController.getAllWriters().forEach(System.out::println);

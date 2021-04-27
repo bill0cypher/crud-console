@@ -17,7 +17,7 @@ public class PostController {
         this.postService = postService;
     }
 
-    public boolean createPost(Post post) {
+    public Post createPost(Post post) {
         try {
             postService.save(post);
         } catch (EmptyBodyException e) {
@@ -25,10 +25,10 @@ public class PostController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
-    public boolean updatePost(Post post) {
+    public Post updatePost(Post post) {
         try {
             return postService.update(post);
         } catch (EmptyListException e) {
@@ -38,7 +38,7 @@ public class PostController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     public boolean deletePost(Integer id) {

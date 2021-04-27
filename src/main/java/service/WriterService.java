@@ -15,13 +15,13 @@ public class WriterService {
         this.writerRepository = repository;
     }
 
-    public boolean save(Writer writer) throws IOException, EmptyBodyException {
+    public Writer save(Writer writer) throws IOException, EmptyBodyException {
         if (Objects.isNull(writer))
             throw new EmptyBodyException(EmptyBodyException.DEFAULT_MESSAGE_TEXT);
         return writerRepository.save(writer);
     }
 
-    public boolean update(Writer writer) throws IOException, EmptyListException, NoSuchEntryException {
+    public Writer update(Writer writer) throws IOException, EmptyListException, NoSuchEntryException {
         return writerRepository.update(writer);
     }
 

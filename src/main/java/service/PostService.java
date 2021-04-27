@@ -17,13 +17,13 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public boolean save(Post post) throws EmptyBodyException, IOException {
+    public Post save(Post post) throws EmptyBodyException, IOException {
         if (Objects.isNull(post))
             throw new EmptyBodyException(EmptyBodyException.DEFAULT_MESSAGE_TEXT);
         return postRepository.save(post);
     }
 
-    public boolean update(Post post) throws IOException, EmptyListException, NoSuchEntryException {
+    public Post update(Post post) throws IOException, EmptyListException, NoSuchEntryException {
         return postRepository.update(post);
     }
 

@@ -53,7 +53,7 @@ public class WriterController {
         return false;
     }
 
-    public boolean saveWriter(Writer writer) {
+    public Writer saveWriter(Writer writer) {
         try {
             return writerService.save(writer);
         } catch (EmptyBodyException e) {
@@ -61,10 +61,10 @@ public class WriterController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
-    public boolean updateWriter(Writer writer) {
+    public Writer updateWriter(Writer writer) {
         try {
             return writerService.update(writer);
         } catch (EmptyListException e) {
@@ -74,6 +74,6 @@ public class WriterController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 }

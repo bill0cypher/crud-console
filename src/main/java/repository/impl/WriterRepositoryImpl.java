@@ -14,33 +14,22 @@ import java.util.stream.Collectors;
 public class WriterRepositoryImpl extends GenericRepoImpl<Writer, Integer> implements WriterRepository {
 
     public WriterRepositoryImpl() {
-        super("writer.json", Writer.class, Writer[].class);
+        super("writer.json", Writer.class, Writer[].class, Integer.class);
     }
 
     @Override
-    public boolean save(Writer writer) throws IOException {
+    public Writer save(Writer writer) throws IOException {
         return writeToFile(writer);
     }
 
     @Override
-    public boolean update(Writer writer) throws NoSuchEntryException, EmptyListException, IOException {
-        List<Writer> writers = readFromFile();
-        writers.stream().filter(entry -> entry.getId().equals(writer.getId())).findAny().ifPresentOrElse(entry -> {
-            writers.set(writers.indexOf(entry), writer);
-        }, () -> {
-            try {
-                throw new NoSuchEntryException(String.format(NoSuchEntryException.DEFAULT_MESSAGE_TEXT, writer.getId()));
-            } catch (NoSuchEntryException e) {
-                e.printStackTrace();
-            }
-        });
-        return updateFile(writers);
+    public Writer update(Writer writer) throws NoSuchEntryException, EmptyListException, IOException {
+        return updateFile(writer);
     }
 
     @Override
     public boolean delete(Integer id) throws EmptyListException, IOException {
-        List<Writer> writers = Objects.requireNonNull(readFromFile()).stream().filter(writer -> !writer.getId().equals(id)).collect(Collectors.toList());
-        return updateFile(writers);
+        return deleteFromFile(id);
     }
 
     @Override

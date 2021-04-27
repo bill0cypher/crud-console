@@ -22,10 +22,10 @@ public class PostsView {
     public void executeOperation(Operations operation) throws NoSuchOperation {
         switch (operation) {
             case CREATE:
-                postController.createPost(post);
+                System.out.println(Objects.requireNonNull(postController.createPost(post)).toString());
                 break;
             case UPDATE:
-                postController.updatePost(post);
+                System.out.println(Objects.requireNonNull(postController.updatePost(post)).toString());
                 break;
             case DELETE:
                 postController.deletePost(postId);
