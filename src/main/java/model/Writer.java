@@ -2,13 +2,17 @@ package model;
 
 import java.util.List;
 
-public class Writer {
+public class Writer{
     private Integer id;
     private String lastName;
     private List<Post> posts;
     private Region region;
 
     public Writer() {
+    }
+
+    public Writer(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {

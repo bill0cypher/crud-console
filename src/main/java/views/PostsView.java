@@ -4,10 +4,9 @@ import controller.PostController;
 import enums.Operations;
 import exceptions.NoSuchOperation;
 import model.Post;
-import repository.impl.PostRepositoryImpl;
+import repository.filesource.PostRepositoryImpl;
 import service.PostService;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class PostsView {

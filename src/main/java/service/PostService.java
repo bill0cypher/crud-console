@@ -4,7 +4,9 @@ import exceptions.EmptyBodyException;
 import exceptions.EmptyListException;
 import exceptions.NoSuchEntryException;
 import model.Post;
-import repository.impl.PostRepositoryImpl;
+import model.Writer;
+import repository.common.GenericRepository;
+import repository.filesource.PostRepositoryImpl;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,9 +14,9 @@ import java.util.Objects;
 
 public class PostService {
 
-    private final PostRepositoryImpl postRepository;
-    public PostService(PostRepositoryImpl postRepository) {
-        this.postRepository = postRepository;
+    private final GenericRepository<Post, Integer> postRepository;
+    public PostService(GenericRepository<Post, Integer> repository) {
+        this.postRepository = repository;
     }
 
     public Post save(Post post) throws EmptyBodyException, IOException {

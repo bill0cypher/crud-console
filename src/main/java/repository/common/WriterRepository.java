@@ -1,4 +1,4 @@
-package repository;
+package repository.common;
 
 import model.Region;
 import model.Writer;

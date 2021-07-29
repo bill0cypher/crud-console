@@ -58,8 +58,6 @@ public class WriterController {
             return writerService.save(writer);
         } catch (EmptyBodyException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return null;
     }

@@ -1,16 +1,18 @@
 package model;
 
+import java.sql.Date;
+
 public class Post {
     private Integer id;
     private String content;
-    private Long created;
-    private Long updated;
+    private Date created;
+    private Date updated;
     private Writer writer;
 
     public Post() {
     }
 
-    public Post(Integer id, String content, Long created, Long updated) {
+    public Post(Integer id, String content, Date created, Date updated) {
         this.id = id;
         this.content = content;
         this.created = created;
@@ -33,19 +35,19 @@ public class Post {
         this.content = content;
     }
 
-    public Long getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Long getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Long updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 

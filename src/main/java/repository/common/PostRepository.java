@@ -1,4 +1,4 @@
-package repository;
+package repository.common;
 
 import model.Post;
 import model.Writer;
