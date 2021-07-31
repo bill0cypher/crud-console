@@ -4,7 +4,7 @@ import controller.WriterController;
 import enums.Operations;
 import exceptions.NoSuchOperation;
 import model.Writer;
-import repository.filesource.WriterRepositoryImpl;
+import repository.hibernate.WriterRepositoryImpl;
 import service.WriterService;
 
 import java.util.Objects;

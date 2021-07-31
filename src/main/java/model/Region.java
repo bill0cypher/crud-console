@@ -1,7 +1,21 @@
 package model;
 
-public class Region {
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "region")
+public class Region implements Serializable {
+
+    @Id
+    @Column(name = "id")
+    @SequenceGenerator(name = "region_id_seq", sequenceName = "REGION_ID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "region_id_seq")
     private Integer id;
+
+    @Column(name = "name")
     private String name;
 
     public Region() {

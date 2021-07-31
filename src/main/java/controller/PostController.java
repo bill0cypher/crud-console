@@ -22,8 +22,6 @@ public class PostController {
             postService.save(post);
         } catch (EmptyBodyException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -31,11 +29,9 @@ public class PostController {
     public Post updatePost(Post post) {
         try {
             return postService.update(post);
-        } catch (EmptyListException e) {
-            e.printStackTrace();
         } catch (NoSuchEntryException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (EmptyBodyException e) {
             e.printStackTrace();
         }
         return null;
@@ -44,9 +40,7 @@ public class PostController {
     public boolean deletePost(Integer id) {
         try {
             return postService.delete(id);
-        } catch (EmptyListException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (NoSuchEntryException e) {
             e.printStackTrace();
         }
         return false;
@@ -57,8 +51,6 @@ public class PostController {
             return postService.getAll();
         } catch (EmptyListException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return Collections.emptyList();
     }
@@ -67,10 +59,6 @@ public class PostController {
         try {
             return postService.findById(id);
         } catch (NoSuchEntryException e) {
-            e.printStackTrace();
-        } catch (EmptyListException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;

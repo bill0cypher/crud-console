@@ -76,11 +76,9 @@ public class WritersDBCRUDTest {
             writer.setPosts(List.of(post));
             writer.setLastName("Bogod");
             org.junit.Assert.assertNotNull(writerService.update(writer));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (EmptyListException e) {
-            e.printStackTrace();
         } catch (NoSuchEntryException e) {
+            e.printStackTrace();
+        } catch (EmptyBodyException e) {
             e.printStackTrace();
         }
     }
@@ -92,9 +90,7 @@ public class WritersDBCRUDTest {
             org.junit.Assert.assertTrue(writerService.delete(writer1.getId()));
         } catch (EmptyBodyException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (EmptyListException e) {
+        } catch (NoSuchEntryException e) {
             e.printStackTrace();
         }
     }

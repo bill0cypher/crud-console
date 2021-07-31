@@ -4,7 +4,7 @@ import controller.PostController;
 import enums.Operations;
 import exceptions.NoSuchOperation;
 import model.Post;
-import repository.filesource.PostRepositoryImpl;
+import repository.hibernate.PostRepositoryImpl;
 import service.PostService;
 
 import java.util.Objects;

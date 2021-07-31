@@ -4,13 +4,11 @@ import exceptions.EmptyBodyException;
 import exceptions.EmptyListException;
 import exceptions.NoSuchEntryException;
 import model.Post;
-import model.Writer;
 import repository.common.GenericRepository;
-import repository.filesource.PostRepositoryImpl;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class PostService {
 
@@ -19,35 +17,29 @@ public class PostService {
         this.postRepository = repository;
     }
 
-    public Post save(Post post) throws EmptyBodyException, IOException {
+    public Post save(Post post) throws EmptyBodyException {
         if (Objects.isNull(post))
             throw new EmptyBodyException(EmptyBodyException.DEFAULT_MESSAGE_TEXT);
         return postRepository.save(post);
     }
 
-    public Post update(Post post) throws IOException, EmptyListException, NoSuchEntryException {
-        return postRepository.update(post);
+    public Post update(Post post) throws NoSuchEntryException, EmptyBodyException {
+        if (Objects.isNull(post))
+            throw new EmptyBodyException(EmptyBodyException.DEFAULT_MESSAGE_TEXT);
+        return Optional.ofNullable(postRepository.update(post)).orElseThrow(() -> new NoSuchEntryException(NoSuchEntryException.DEFAULT_MESSAGE_TEXT));
     }
 
-    public boolean delete(Integer id) throws IOException, EmptyListException {
-        return postRepository.delete(id);
-    }
-
-
-    public boolean deleteById(Integer integer) {
-        return false;
+    public boolean delete(Integer id) throws NoSuchEntryException {
+        return Optional.of(postRepository.delete(id)).orElseThrow(() -> new NoSuchEntryException(NoSuchEntryException.DEFAULT_MESSAGE_TEXT));
     }
 
 
-    public Post findById(Integer id) throws NoSuchEntryException, EmptyListException, IOException {
-        Post post = postRepository.findById(id);
-        if ( post == null)
-            throw new NoSuchEntryException(String.format(NoSuchEntryException.DEFAULT_MESSAGE_TEXT, id));
-        return post;
+    public Post findById(Integer id) throws NoSuchEntryException {
+        return Optional.ofNullable(postRepository.findById(id)).orElseThrow(() -> new NoSuchEntryException(String.format(NoSuchEntryException.DEFAULT_MESSAGE_TEXT, id)));
     }
 
 
-    public List<Post> getAll() throws IOException, EmptyListException {
-        return postRepository.getAll();
+    public List<Post> getAll() throws EmptyListException {
+        return Optional.ofNullable(postRepository.getAll()).orElseThrow(() -> new EmptyListException(EmptyListException.DEFAULT_MESSAGE_TEXT));
     }
 }

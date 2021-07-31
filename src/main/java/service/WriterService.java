@@ -9,6 +9,7 @@ import repository.common.GenericRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class WriterService {
     private final GenericRepository<Writer, Integer> writerRepository;
@@ -22,19 +23,20 @@ public class WriterService {
         return writerRepository.save(writer);
     }
 
-    public Writer update(Writer writer) throws IOException, EmptyListException, NoSuchEntryException {
-        return writerRepository.update(writer);
+    public Writer update(Writer writer) throws EmptyBodyException, NoSuchEntryException {
+        if (writer == null) throw new EmptyBodyException(EmptyBodyException.DEFAULT_MESSAGE_TEXT);
+        return Optional.ofNullable(writerRepository.update(writer)).orElseThrow(() -> new NoSuchEntryException(NoSuchEntryException.DEFAULT_MESSAGE_TEXT));
     }
 
-    public boolean delete(Integer id) throws IOException, EmptyListException {
-        return writerRepository.delete(id);
+    public boolean delete(Integer id) throws NoSuchEntryException {
+        return Optional.of(writerRepository.delete(id)).orElseThrow(() -> new NoSuchEntryException(NoSuchEntryException.DEFAULT_MESSAGE_TEXT));
     }
 
-    public Writer findById(Integer id) throws NoSuchEntryException, IOException, EmptyListException {
-        return writerRepository.findById(id);
+    public Writer findById(Integer id) throws NoSuchEntryException {
+        return Optional.ofNullable(writerRepository.findById(id)).orElseThrow(() -> new NoSuchEntryException(NoSuchEntryException.DEFAULT_MESSAGE_TEXT));
     }
 
-    public List<Writer> getAll() throws IOException, EmptyListException {
-        return writerRepository.getAll();
+    public List<Writer> getAll() throws  EmptyListException {
+        return Optional.ofNullable(writerRepository.getAll()).orElseThrow(() -> new EmptyListException(EmptyListException.DEFAULT_MESSAGE_TEXT));
     }
 }

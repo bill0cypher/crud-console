@@ -1,12 +1,33 @@
 package model;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Post {
+@Entity
+@Table(name = "post")
+public class Post implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Column(name = "id")
+    @SequenceGenerator(name = "post_id_seq", sequenceName = "POST_ID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_id_seq")
     private Integer id;
+
+    @Column(name = "content")
     private String content;
+
+    @Column(name = "created")
     private Date created;
+    @Column(name = "updated")
     private Date updated;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, optional = false)
     private Writer writer;
 
     public Post() {

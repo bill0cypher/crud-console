@@ -6,7 +6,6 @@ import exceptions.NoSuchEntryException;
 import model.Writer;
 import service.WriterService;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,8 +22,6 @@ public class WriterController {
             return writerService.getAll();
         } catch (EmptyListException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return Collections.emptyList();
     }
@@ -34,10 +31,6 @@ public class WriterController {
             return writerService.findById(id);
         } catch (NoSuchEntryException e) {
             e.printStackTrace();
-        } catch (EmptyListException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -45,9 +38,7 @@ public class WriterController {
     public boolean deleteWriter(Integer id) {
         try {
             return writerService.delete(id);
-        } catch (EmptyListException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (NoSuchEntryException e) {
             e.printStackTrace();
         }
         return false;
@@ -65,11 +56,9 @@ public class WriterController {
     public Writer updateWriter(Writer writer) {
         try {
             return writerService.update(writer);
-        } catch (EmptyListException e) {
-            e.printStackTrace();
         } catch (NoSuchEntryException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (EmptyBodyException e) {
             e.printStackTrace();
         }
         return null;
