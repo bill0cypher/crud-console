@@ -32,7 +32,6 @@ public class WriterRepositoryImpl implements WriterRepository {
         try (Session session = sessionFactory.openSession()){
             transaction = session.beginTransaction();
             session.save(writer.getRegion());
-            System.out.println(writer.getPosts().size());
             res = session.get(Writer.class, session.save(writer));
             transaction.commit();
         } catch (IllegalStateException e) {
@@ -102,7 +101,9 @@ public class WriterRepositoryImpl implements WriterRepository {
         try(Session session = sessionFactory.openSession()) {
             transaction = session.getTransaction();
             transaction.begin();
-            res = session.createQuery("from Writer w where w.id =:id", Writer.class).getResultList();
+            res = session.createQuery("from Writer w where w.region.name =:name", Writer.class)
+                    .setParameter("name", region.getName())
+                    .getResultList();
             transaction.commit();
         } catch (Exception e) {
             Optional.ofNullable(transaction).ifPresent(EntityTransaction::rollback);
